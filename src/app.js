@@ -88,7 +88,7 @@ client.on('ready', () =>{
 });
 
 client.on('message', msg =>{
-    if (msg.content.slice(0,4) === `${config.prefix}add`) {
+    if (msg.content.slice(0,4) === `${config.prefix}addP`) {
         addPerson(msg.content.slice(5,20));
     }
     if (msg.content === `${config.prefix}help`) {
@@ -105,7 +105,7 @@ client.on('message', msg =>{
     }
 });
 
-bot.onText(/\/add (.+)/, (msg, match) => {
+bot.onText(/\/addP (.+)/, (msg, match) => {
     const chatId = msg.chat.id;
     addPerson(match[1]);
     bot.sendMessage(chatId,'New person added!');
