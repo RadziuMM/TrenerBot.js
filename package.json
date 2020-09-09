@@ -6,5 +6,8 @@
   "dependencies": {
     "discord.js": "^12.3.1",
     "node-telegram-bot-api": "^0.50.0"
+  },
+  "scripts": {
+    "start": "node src/app.js"
   }
 }
