@@ -176,10 +176,10 @@ bot.onText(/\/set (.+)/, (msg, match) => {
   });
 
 
-bot.on('message', (msg) => {
-const chatId = msg.chat.id;
-const mess = sing(msg.text);
-bot.sendMessage(chatId, mess);
+bot.onText(/\(.+)/, (msg) => {
+    const chatId = msg.chat.id;
+    const mess = sing(msg.text);
+    bot.sendMessage(chatId, mess);
 });
 
 client.login(config.tokenD);
