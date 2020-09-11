@@ -176,9 +176,9 @@ bot.onText(/\/set (.+)/, (msg, match) => {
   });
 
 
-bot.onText(/\(.+)/, (msg) => {
+  bot.onText(/\/(.+)/, (msg, match) => {
     const chatId = msg.chat.id;
-    const mess = sing(msg.text);
+    const mess = sing(match[1]);
     bot.sendMessage(chatId, mess);
 });
 
