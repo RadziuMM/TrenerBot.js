@@ -16,6 +16,56 @@ app.get('/', function(request, response) {
 }).listen(app.get('port'), function() {
     console.log('App is running, server is listening on port ', app.get('port'));
 });
+const site = "https://genius.com/Bon-jovi-you-give-love-a-bad-name-lyrics"
+
+const song = [
+`Shot through the heart and you're to blame`,
+`Darling, you give love a bad name`,
+`An angel's smile is what you sell`,
+`You promise me heaven, then put me through hell`,
+`Chains of love got a hold on me`,
+`When passion's a prison, you can't break free`,
+`Whoa, you're a loaded gun, yeah`,
+`Whoa, there's nowhere to run`,
+`No one can save me, the damage is done`,
+`Shot through the heart and you're to blame`,
+`You give love a bad name (Bad name)`,
+`I play my part and you play your game`,
+`You give love a bad name (Bad name)`,
+`Yeah, you give love a bad name`,
+`Paint your smile on your lips`,
+`Blood red nails on your fingertips`,
+`A school boy's dream, you act so shy`,
+`Your very first kiss was your first kiss goodbye`,
+`Whoa, you're a loaded gun`,
+`Whoa, there's nowhere to run`,
+`No one can save me, the damage is done`,
+`Shot through the heart and you're to blame`,
+`You give love a bad name (Bad name)`,
+`I play my part and you play your game`,
+`You give love a bad name (Bad name)`,
+`You give love a...`,
+`Oh, shot through the heart and you're to blame`,
+`You give love a bad name`,
+`I play my part and you play your game`,
+`You give love a bad name (Bad name)`,
+`Shot through the heart and you're to blame`,
+`You give love a bad name (Bad name)`,
+`I play my part and you play your game`,
+`You give love a bad name (Bad name)`,
+`You give love`,
+`You give love, bad name`,
+]
+
+const sing = (arg1) =>{
+    for(let i = 0;i < song.length;i += 1) {
+        const arg2 = song[i];
+        if(arg1 === arg2) {
+            return song[i+1];
+        }
+    }  
+}
+
 
 
 const users = [];
@@ -124,4 +174,12 @@ bot.onText(/\/set (.+)/, (msg, match) => {
     const data = resp.split(' ')
     bot.sendMessage(chatId, set(data));
   });
+
+
+bot.on('message', (msg) => {
+const chatId = msg.chat.id;
+const mess = sing(msg.text);
+bot.sendMessage(chatId, mess);
+});
+
 client.login(config.tokenD);
