@@ -141,9 +141,10 @@ const set = (arg) => {
                         const data =[arg[1], w ,b ,c ,d ,s ,g];
                         db.collection(fireBaseC.dbcollection).doc(arg[1]).set({data})
                         setMessage = 'User statistic updated!'
-                        } else { setMessage = 'Bad argument!' }
-                    } else { setMessage = 'User not exist!' }
+                        }
+                    }
                 }
+                if(setMessage === ''){setMessage = 'Bad argument!'}
             }
                 
         },20)
