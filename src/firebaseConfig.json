@@ -1,11 +1,11 @@
 {
-	"apiKey": "AIzaSyDU2GclCag4ZkRc0cnYfdyaC89wCmrF6X8",
-	"authDomain": "todo-fd4ec.firebaseapp.com",
-	"databaseURL" : "https://todo-fd4ec.firebaseio.com",
-	"projectId" : "todo-fd4ec",
-	"storageBucket" : "todo-fd4ec.appspot.com",
-	"messagingSenderId" : "527697799793",
-	"appId" : "1:527697799793:web:3fe71417c910ba3d2949d0",
-    "measurementId" : "G-TNEYVC7CGK",
-	"dbcollection" : "Trener.js"
+	"apiKey": ".",
+	"authDomain": ".",
+	"databaseURL" : ".",
+	"projectId" : ".",
+	"storageBucket" : ".",
+	"messagingSenderId" : ".",
+	"appId" : ".",
+    "measurementId" : ".",
+	"dbcollection" : "."
 }
