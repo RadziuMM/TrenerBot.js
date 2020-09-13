@@ -85,14 +85,14 @@ const stats = () =>{
                 let data = 'Statistic:';
                 for(let i = 0;i < users.length;i += 1){
                     data += `
-                    \ ${users[i].name}
-                    \ weight: ${users[i].weight}
-                    \ bench press: ${users[i].benchPress}
-                    \ curved bench press: ${users[i].curvedBenchPress}
-                    \ deadlift: ${users[i].deadlift}
-                    \ squat: ${users[i].squat}
-                    \ gantry: ${users[i].gantry}
-                    `
+    \ ${users[i].name}
+    \ weight: ${users[i].weight}
+    \ bench press: ${users[i].benchPress}
+    \ curved bench press: ${users[i].curvedBenchPress}
+    \ deadlift: ${users[i].deadlift}
+    \ squat: ${users[i].squat}
+    \ gantry: ${users[i].gantry}
+    `
                 }
                 statsData = data;
             }
@@ -113,6 +113,7 @@ const help = () => {
 let setMessage = ''
 const set = (arg) => {
     loadData();
+    setMessage = ''
     users = '';
     const check = () =>{
         setTimeout(function(){
