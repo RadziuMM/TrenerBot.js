@@ -1,72 +1,55 @@
+const firebase =require('firebase');
 const TelegramBot = require('node-telegram-bot-api');
 const Discord = require('discord.js');
 const express = require('express');
+
 const config = require('./config.json');
+const fireBaseC = require('./firebaseConfig.json');
 
-const app     = express();
-const client = new Discord.Client();
-const bot = new TelegramBot(config.tokenT, {polling: true});
+const firebaseConfig = {
+    apiKey: fireBaseC.apiKey,
+    authDomain: fireBaseC.authDomain,
+    databaseURL: fireBaseC.databaseURL,
+    projectId: fireBaseC.projectId,
+    storageBucket: fireBaseC.storageBucket,
+    messagingSenderId: fireBaseC.messagingSenderId,
+    appId: fireBaseC.appId,
+    measurementId: fireBaseC.measurementId
+  };
 
+const MyProject = firebase.initializeApp(firebaseConfig);
+MyFirestore = firebase.firestore();
+const db = firebase.firestore();
 
-app.set('port', (process.env.PORT || 5000));
+let data = 0;
 
-app.get('/', function(request, response) {
-    var result = 'App is running'
-    response.send(result);
-}).listen(app.get('port'), function() {
-    console.log('App is running, server is listening on port ', app.get('port'));
-});
-const site = "https://genius.com/Bon-jovi-you-give-love-a-bad-name-lyrics"
-
-const song = [
-`Shot through the heart and you're to blame`,
-`Darling, you give love a bad name`,
-`An angel's smile is what you sell`,
-`You promise me heaven, then put me through hell`,
-`Chains of love got a hold on me`,
-`When passion's a prison, you can't break free`,
-`Whoa, you're a loaded gun, yeah`,
-`Whoa, there's nowhere to run`,
-`No one can save me, the damage is done`,
-`Shot through the heart and you're to blame`,
-`You give love a bad name (Bad name)`,
-`I play my part and you play your game`,
-`You give love a bad name (Bad name)`,
-`Yeah, you give love a bad name`,
-`Paint your smile on your lips`,
-`Blood red nails on your fingertips`,
-`A school boy's dream, you act so shy`,
-`Your very first kiss was your first kiss goodbye`,
-`Whoa, you're a loaded gun`,
-`Whoa, there's nowhere to run`,
-`No one can save me, the damage is done`,
-`Shot through the heart and you're to blame`,
-`You give love a bad name (Bad name)`,
-`I play my part and you play your game`,
-`You give love a bad name (Bad name)`,
-`You give love a...`,
-`Oh, shot through the heart and you're to blame`,
-`You give love a bad name`,
-`I play my part and you play your game`,
-`You give love a bad name (Bad name)`,
-`Shot through the heart and you're to blame`,
-`You give love a bad name (Bad name)`,
-`I play my part and you play your game`,
-`You give love a bad name (Bad name)`,
-`You give love`,
-`You give love, bad name`,
-]
-
-const sing = (arg1) =>{
-    for(let i = 0;i < song.length;i += 1) {
-        const arg2 = song[i];
-        if(arg1 === arg2) {
-            return song[i+1];
-        }
-    }  
+const loadData = () => {
+    db.collection(fireBaseC.dbcollection).get().then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+            setData(doc.data());
+        });
+    });
 }
-
-
+const setData = (arg1) => {
+    data = arg1
+}
+const check = () => {
+    setTimeout(() => {
+        if (data !== 0) next(); else check();
+    }, 10);
+}
+const next=()=>{
+    console.log(data)
+};
+const pushdata = (dataToPush) => {
+    db.collection(fireBaseC.dbcollection).doc(fireBaseC.dbdocument).set({dataToPush})
+      .then(function() {
+          console.log("Document successfully written!");
+      })
+      .catch(function(error) {
+          console.error("Error writing document: ", error);
+      });;
+};
 
 const users = [];
 
@@ -81,11 +64,15 @@ class Person {
         this.gantry = 0;
     }
 }
+
 const addPerson = (name) => {
-    users.push(new Person(name)) 
+    users.push(new Person(name));
+    pushdata(users);
 }
 
 const stats = () =>{
+    loadData();
+    
     let data = 'Statistic:';
     for(let i = 0;i < users.length;i += 1){
         data += `
@@ -133,9 +120,8 @@ const set = (data) => {
 
 }
 
-client.on('ready', () =>{
-    console.log(`Logged in as ${client.user.tag}!`);
-});
+const client = new Discord.Client();
+const bot = new TelegramBot(config.tokenT, {polling: true});
 
 client.on('message', msg =>{
     if (msg.content.slice(0,4) === `${config.prefix}addP`) {
@@ -183,3 +169,14 @@ bot.onText(/\/set (.+)/, (msg, match) => {
 });
 
 client.login(config.tokenD);
+
+const app = express();
+
+app.set('port', (process.env.PORT || 5000));
+
+app.get('/', function(request, response) {
+    var result = 'App is running'
+    response.send(result);
+}).listen(app.get('port'), function() {
+    console.log('App is running, server is listening on port ', app.get('port'));
+});
